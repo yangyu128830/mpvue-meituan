@@ -53,6 +53,12 @@
         "selectedIconPath": "static/images/icon_tabbar_message_selected@3x.png"
       },
       {
+        "pagePath": "pages/shoppingCart/main",
+        "text": "购物车",
+        "iconPath": "static/images/icon_tabbar_shopping_cart@3x.png",
+        "selectedIconPath": "static/images/icon_tabbar_shopping_cart_selected@3x.png"
+      },
+      {
         "pagePath": "pages/me/main",
         "text": "我的",
         "iconPath": "static/images/icon_tabbar_mine@3x.png",
