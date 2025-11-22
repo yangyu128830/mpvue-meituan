@@ -74,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import "assets/iconfont.less";
+@import "@/assets/iconfont.scss";
 
 page {
   box-sizing: border-box;
