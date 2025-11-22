@@ -47,6 +47,12 @@
         "selectedIconPath": "static/images/icon_tabbar_order_selected@3x.png"
       },
       {
+        "pagePath": "pages/message/main",
+        "text": "消息",
+        "iconPath": "static/images/icon_tabbar_message@3x.png",
+        "selectedIconPath": "static/images/icon_tabbar_message_selected@3x.png"
+      },
+      {
         "pagePath": "pages/me/main",
         "text": "我的",
         "iconPath": "static/images/icon_tabbar_mine@3x.png",
