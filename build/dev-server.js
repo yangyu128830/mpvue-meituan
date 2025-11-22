@@ -64,6 +64,9 @@ app.use(require('connect-history-api-fallback')())
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
 
+// serve dist directory
+app.use(config.dev.assetsPublicPath, express.static(config.build.assetsRoot))
+
 // var uri = 'http://localhost:' + port
 
 var _resolve
