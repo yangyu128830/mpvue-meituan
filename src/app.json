@@ -4,6 +4,7 @@
     "pages/shoppingCart/main",
     "pages/submitOrder/main",
     "pages/me/main",
+    "pages/discount/main",
     "pages/expiredRedPacket/main",
     "pages/expiredCoupon/main",
     "pages/redPacket/main",
@@ -70,6 +71,12 @@
         "text": "我的",
         "iconPath": "static/images/icon_tabbar_mine@3x.png",
         "selectedIconPath": "static/images/icon_tabbar_mine_selected@3x.png"
+      },
+      {
+        "pagePath": "pages/discount/main",
+        "text": "特价",
+        "iconPath": "static/images/icon_tabbar_home@3x.png",
+        "selectedIconPath": "static/images/icon_tabbar_home_selected@3x.png"
       }
     ]
   }
