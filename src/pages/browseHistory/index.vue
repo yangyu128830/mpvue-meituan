@@ -2,7 +2,7 @@
   <div class="container">
     <div class="content">
       <div class="header">
-        <span class="title">搜索历史</span>
+        <span class="title">浏览记录</span>
         <span class="clear" @click="clearHistory">清空历史</span>
       </div>
       <div class="tabs">
@@ -18,13 +18,14 @@
         </div>
       </div>
       <div class="empty" v-else>
-        <span>暂无搜索历史</span>
+        <span>暂无浏览记录</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -37,12 +38,12 @@ export default {
   },
   methods: {
     loadHistory() {
-      const history = wx.getStorageSync('searchHistory')
+      const history = wx.getStorageSync('browseHistory')
       if (history) {
         try {
           this.historyList = JSON.parse(history)
         } catch (e) {
-          console.error('Failed to parse search history:', e)
+          console.error('Failed to parse browse history:', e)
         }
       }
     },
@@ -53,11 +54,11 @@ export default {
     },
     deleteHistoryItem(index) {
       this.historyList.splice(index, 1)
-      wx.setStorageSync('searchHistory', JSON.stringify(this.historyList))
+      wx.setStorageSync('browseHistory', JSON.stringify(this.historyList))
     },
     clearHistory() {
       this.historyList = []
-      wx.removeStorageSync('searchHistory')
+      wx.removeStorageSync('browseHistory')
     }
   }
 }
