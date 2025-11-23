@@ -1,8 +1,9 @@
 {
   "pages": [
     "pages/home/main",
+    "pages/orderList/main",
+    "pages/message/main",
     "pages/shoppingCart/main",
-    "pages/submitOrder/main",
     "pages/me/main",
     "pages/discount/main",
     "pages/expiredRedPacket/main",
@@ -15,7 +16,6 @@
     "pages/searchHistory/main",
     "pages/browseHistory/main",
     "pages/addAddress/main",
-    "pages/orderList/main",
     "pages/remark/main",
     "pages/citySearch/main",
     "pages/citys/main",
@@ -29,8 +29,7 @@
     "pages/editPassword/main",
     "pages/memberLevel/main",
     "pages/consumptionHistory/main",
-    "pages/recentVisits/main",
-    "pages/message/main"
+    "pages/recentVisits/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -76,8 +75,8 @@
       {
         "pagePath": "pages/discount/main",
         "text": "特价",
-        "iconPath": "static/images/icon_tabbar_member@3x.svg",
-        "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
+        "iconPath": "static/images/icon_tabbar_discount@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_discount_selected@3x.svg"
       }
     ]
   }
