@@ -3,8 +3,10 @@
     <div class="header-c">
       <img src="https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJvoc0l3Oe4lWTMtUvLd7UYm9IvSWNjM6S5ibZBu3OE5XbCEqgPw9llpibmkyqEX9GbLKOCfTIe6wWQ/132" alt="">
       <div class="info-c">
-        <span class="name">光强</span>
+        <span class="name" @click="editNickname">{{ nickname }}</span>
         <span class="phone">15214313256</span>
+        <span class="address" @click="editAddress">{{ address }}</span>
+        <span class="member-level" @click="viewMemberLevel">{{ memberLevel }}</span>
       </div>
     </div>
     <div class="list-c">
@@ -25,6 +27,9 @@
 export default {
   data() {
     return {
+      nickname: '光强',
+      address: '北京市海淀区中关村',
+      memberLevel: '黄金会员',
       itemList: [
         {
           title: '美团红包',
@@ -42,6 +47,21 @@ export default {
           title: '我的地址',
           icon: 'mt-my-location-o',
           path: '/pages/addressList/main'
+        },
+        {
+          title: '修改密码',
+          icon: 'mt-lock-o',
+          path: '/pages/editPassword/main'
+        },
+        {
+          title: '消费记录',
+          icon: 'mt-file-text-o',
+          path: '/pages/consumptionHistory/main'
+        },
+        {
+          title: '最近访问',
+          icon: 'mt-eye-o',
+          path: '/pages/recentVisits/main'
         },
         {
           title: '邀请有奖',
@@ -70,6 +90,15 @@ export default {
     itemClick(e) {
       wx.navigateTo({url: e.path})
     },
+    editNickname() {
+      wx.navigateTo({url: '/pages/editNickname/main'})
+    },
+    editAddress() {
+      wx.navigateTo({url: '/pages/addressList/main'})
+    },
+    viewMemberLevel() {
+      wx.navigateTo({url: '/pages/memberLevel/main'})
+    },
     logoutClick() {
       wx.showModal({
           title: '确认退出？',
@@ -77,9 +106,7 @@ export default {
           confirmColor: '#FFC24A',
           success: function(res) {
             if (res.confirm) {
-              resolve('ok')
-            } else if (res.cancel) {
-              resolve('cancle')
+              // Perform logout actions here
             }
         }
       })
@@ -93,7 +120,7 @@ export default {
   .header-c {
     display: flex;
     align-items: center;
-    height: 200rpx;
+    height: 240rpx;
     background-color: #FFD26B;
     img {
       width: 120rpx;
@@ -109,10 +136,23 @@ export default {
         font-size: 32rpx;
         color: $textBlack-color;
         font-weight: bold;
+        cursor: pointer;
       }
       .phone {
         font-size: 28rpx;
         color: $textBlack-color;
+      }
+      .address {
+        font-size: 26rpx;
+        color: $textGray-color;
+        margin-top: 8rpx;
+        cursor: pointer;
+      }
+      .member-level {
+        font-size: 26rpx;
+        color: #FF6B00;
+        margin-top: 8rpx;
+        cursor: pointer;
       }
     }
   }

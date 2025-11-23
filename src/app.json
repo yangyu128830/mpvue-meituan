@@ -21,7 +21,12 @@
     "pages/protocol/main",
     "pages/feedback/main",
     "pages/pickProtocol/main",
-    "pages/orderDetail/main"
+    "pages/orderDetail/main",
+    "pages/editNickname/main",
+    "pages/editPassword/main",
+    "pages/memberLevel/main",
+    "pages/consumptionHistory/main",
+    "pages/recentVisits/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
