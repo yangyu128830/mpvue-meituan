@@ -62,8 +62,8 @@
       {
         "pagePath": "pages/shoppingCart/main",
         "text": "购物车",
-        "iconPath": "static/images/icon_tabbar_shopping_cart@3x.png",
-        "selectedIconPath": "static/images/icon_tabbar_shopping_cart_selected@3x.png"
+        "iconPath": "static/images/icon_tabbar_shopping_cart@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_shopping_cart_selected@3x.svg"
       },
       {
         "pagePath": "pages/me/main",
