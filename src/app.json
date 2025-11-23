@@ -70,12 +70,6 @@
         "text": "我的",
         "iconPath": "static/images/icon_tabbar_mine@3x.png",
         "selectedIconPath": "static/images/icon_tabbar_mine_selected@3x.png"
-      },
-      {
-        "pagePath": "pages/memberLevel/main",
-        "text": "会员中心",
-        "iconPath": "static/images/icon_tabbar_member@3x.svg",
-        "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
       }
     ]
   }
