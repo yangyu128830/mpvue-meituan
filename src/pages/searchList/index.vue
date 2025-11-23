@@ -10,6 +10,12 @@
           </div>
         </div>
         <span class="search-btn" @click="search">搜索</span>
+          <span class="search-manage-btn" @click="goToSearchHistory">管理</span>
+      </div>
+      <div class="tabs">
+        <span class="tab" :class="{active: currentTab === 'product'}" @click="currentTab = 'product'">商品</span>
+        <span class="tab" :class="{active: currentTab === 'store'}" @click="currentTab = 'store'">店铺</span>
+        <span class="tab" :class="{active: currentTab === 'search'}" @click="currentTab = 'search'">搜索</span>
       </div>
       <span class="title">热门搜索</span>
       <div class="line-t"></div>
@@ -53,9 +59,11 @@ export default {
       historyList: [],
       keyword: '',
       searchResults: [],
-      showResults: false
+      showResults: false,
+      currentTab: 'search'
     }
   },
+
   mounted() {
     this.hotList = searchData.data.data.labels
     this.loadHistory()
@@ -64,7 +72,12 @@ export default {
     onSearchInput() {
       // Clear results when typing
       this.showResults = false
-    },
+      },
+      goToSearchHistory() {
+        wx.navigateTo({
+          url: '/pages/searchHistory/main'
+        })
+      },
     search() {
       if (!this.keyword.trim()) return
       
@@ -90,14 +103,15 @@ export default {
       this.search()
     },
     addToHistory(item) {
+      if (!item.trim()) return
       // Remove duplicates
-      const index = this.historyList.indexOf(item)
-      if (index > -1) {
-        this.historyList.splice(index, 1)
+      const existingItem = this.historyList.find(historyItem => historyItem.keyword === item && historyItem.category === this.currentTab)
+      if (existingItem) {
+        this.historyList.splice(this.historyList.indexOf(existingItem), 1)
       }
       
       // Add to top
-      this.historyList.unshift(item)
+      this.historyList.unshift({ keyword: item, category: this.currentTab })
       
       // Keep only last 10 items
       if (this.historyList.length > 10) {
@@ -187,7 +201,16 @@ export default {
         text-align: center;
       }
     }
-    .title {
+    .search-manage-btn {
+        width: 100rpx;
+        height: 60rpx;
+        color: $textDarkGray-color;
+        font-size: 24rpx;
+        line-height: 60rpx;
+        text-align: center;
+        margin-right: 30rpx;
+      }
+      .title {
       font-size: 24rpx;
       color: $textDarkGray-color;
       margin: 30rpx;

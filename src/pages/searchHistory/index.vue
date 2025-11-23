@@ -6,9 +6,14 @@
         <span class="clear" @click="clearHistory">清空历史</span>
       </div>
       <div class="line"></div>
-      <div class="history-list" v-if="historyList.length > 0">
-        <div class="item" v-for="(item, index) in historyList" :key="index" @click="onHistoryItemClick(item)">
-          <span>{{item}}</span>
+      <div class="tabs">
+        <span class="tab" :class="{active: currentTab === 'product'}" @click="currentTab = 'product'">商品</span>
+        <span class="tab" :class="{active: currentTab === 'store'}" @click="currentTab = 'store'">店铺</span>
+        <span class="tab" :class="{active: currentTab === 'search'}" @click="currentTab = 'search'">搜索</span>
+      </div>
+      <div class="history-list" v-if="filteredHistory.length > 0">
+        <div class="item" v-for="(item, index) in filteredHistory" :key="index" @click="onHistoryItemClick(item)">
+          <span>{{item.keyword}}</span>
           <i class="icon mt-trash-o" @click.stop="deleteHistoryItem(index)"></i>
         </div>
       </div>
@@ -23,7 +28,16 @@
 export default {
   data() {
     return {
-      historyList: []
+      historyList: [],
+      currentTab: 'search'
+    }
+  },
+  computed: {
+    filteredHistory() {
+      if (this.currentTab === 'search') {
+        return this.historyList
+      }
+      return this.historyList.filter(item => item.category === this.currentTab)
     }
   },
   mounted() {
@@ -42,7 +56,7 @@ export default {
     },
     onHistoryItemClick(item) {
       wx.navigateTo({
-        url: `/pages/searchList/main?keyword=${encodeURIComponent(item)}`
+        url: `/pages/searchList/main?keyword=${encodeURIComponent(item.keyword)}&tab=${item.category}`
       })
     },
     deleteHistoryItem(index) {
@@ -80,6 +94,22 @@ export default {
     .line {
       height: 2rpx;
       background-color: $spLine-color;
+    }
+    .tabs {
+      display: flex;
+      margin: 20rpx 0;
+      padding: 0 30rpx;
+      .tab {
+        flex: 1;
+        text-align: center;
+        padding: 15rpx 0;
+        font-size: 28rpx;
+        color: $textDarkGray-color;
+        &.active {
+          color: $theme-color;
+          border-bottom: 3rpx solid $theme-color;
+        }
+      }
     }
     .history-list {
       .item {
