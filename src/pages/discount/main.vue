@@ -103,446 +103,252 @@ export default {
       });
     },
     viewAllDeals() {
-      // 跳转到全部特价商品页
+      // 查看全部低价商品
       wx.navigateTo({
-        url: '/pages/discount/allDeals'
+        url: '/pages/allDeals/main'
       });
     },
     recommendProduct() {
-      // 跳转到推荐商品页
+      // 推荐低价商品
       wx.navigateTo({
-        url: '/pages/discount/recommend'
+        url: '/pages/recommendProduct/main'
       });
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+@import "@/assets/global.scss";
+
 .container {
-  .content {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-color: $page-bgcolor;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background-color: white;
+  border-bottom: 1rpx solid $spLine-color;
+  
+  .icon {
+    font-size: 28rpx;
+    color: $textGray-color;
+    margin-right: 20rpx;
+  }
+  
+  input {
+    flex: 1;
+    height: 40rpx;
+    font-size: 24rpx;
+    color: $textBlack-color;
     background-color: $page-bgcolor;
+    border-radius: 20rpx;
+    padding: 0 20rpx;
+  }
+}
+
+.daily-deals {
+  background-color: white;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20rpx;
     
-    .search-box {
+    .l, .r {
+      height: 2rpx;
+      width: 60rpx;
+      background-color: $spLine-color;
+    }
+    
+    .m {
+      font-size: 28rpx;
+      color: $textBlack-color;
+      margin: 0 20rpx;
+      font-weight: bold;
+    }
+  }
+  
+  .deal-items {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+    
+    .deal-item {
+      width: 30%;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      background-color: white;
-      height: 80rpx;
-      padding: 0 30rpx;
-      border-bottom: $line-width solid $spLine-color;
-      box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
-      
-      i {
-        color: $textDarkGray-color;
-        font-size: 32rpx;
-      }
-      
-      input {
-        flex: 1;
-        background-color: $page-bgcolor;
-        height: 60rpx;
-        border-radius: 30rpx;
-        margin-left: 20rpx;
-        padding: 0 20rpx;
-        font-size: 24rpx;
-        color: $textBlack-color;
-        border: none;
-        outline: none;
-        &::placeholder {
-          color: $placeholder-textcolor;
-          font-size: $placeholder-font * 2 + rpx;
-        }
-      }
-    }
-    
-    .daily-deals {
-      margin: 20rpx;
-      background-color: white;
+      background-color: $page-bgcolor;
       border-radius: 8rpx;
-      padding: 20rpx;
-      box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+      padding: 10rpx;
       
-      .section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20rpx;
-        
-        .l, .r {
-          height: 2rpx;
-          width: 60rpx;
-          background-color: $spLine-color;
-        }
-        
-        .m {
-          font-size: 32rpx;
-          color: $textBlack-color;
-          margin: 0 20rpx;
-          font-weight: bold;
-        }
-      }
-      
-      .deal-items {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20rpx;
-        
-        .deal-item {
-          width: 32%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          background-color: #fafafa;
-          padding: 10rpx;
-          border-radius: 8rpx;
-          transition: all 0.3s ease;
-          
-          &:hover {
-            transform: translateY(-2rpx);
-            box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-          }
-          
-          img {
-            width: 160rpx;
-            height: 120rpx;
-            border-radius: 8rpx;
-            margin-bottom: 10rpx;
-          }
-          
-          .name-c {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 8rpx;
-            
-            .name {
-              font-size: 24rpx;
-              color: $textBlack-color;
-              text-align: center;
-              white-space: nowrap;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-          }
-          
-          .price {
-            font-size: 28rpx;
-            color: $mtRed-color;
-            font-weight: bold;
-          }
-        }
-      }
-      
-      .view-all {
+      img {
         width: 100%;
-        height: 80rpx;
-        background-color: $theme-color;
-        color: white;
-        border: none;
+        height: 120rpx;
         border-radius: 8rpx;
-        font-size: 28rpx;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          background-color: darken($theme-color, 10%);
-        }
+        margin-bottom: 10rpx;
       }
-    }
-    
-    .category-tabs {
-      background-color: white;
-      padding: 20rpx;
-      margin-bottom: 20rpx;
-      box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
       
-      ul {
-        display: flex;
-        overflow-x: auto;
-        padding-bottom: 10rpx;
+      .name-c {
+        width: 100%;
+        margin-bottom: 10rpx;
         
-        li {
-          font-size: 28rpx;
-          color: $textDarkGray-color;
-          padding: 10rpx 20rpx;
-          margin-right: 20rpx;
-          border-radius: 20rpx;
-          white-space: nowrap;
-          transition: all 0.3s ease;
-          
-          &:last-child {
-            margin-right: 0;
-          }
-          
-          &.active {
-            background-color: $theme-color;
-            color: white;
-          }
-          
-          &:hover:not(.active) {
-            background-color: #f0f0f0;
-          }
-        }
-      }
-    }
-    
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      padding: 0 20rpx 20rpx;
-      
-      .product-item {
-        width: 48%;
-        background-color: white;
-        border-radius: 8rpx;
-        margin-bottom: 20rpx;
-        padding: 10rpx;
-        box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        
-        &:hover {
-          transform: translateY(-2rpx);
-          box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
-        }
-        
-        img {
-          width: 100%;
-          height: 240rpx;
-          border-radius: 8rpx;
-          margin-bottom: 10rpx;
-        }
-        
-        .name-c {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          margin-bottom: 8rpx;
-          
-          .name {
-            font-size: 24rpx;
-            color: $textBlack-color;
-            text-align: center;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        }
-        
-        .price {
-          font-size: 28rpx;
-          color: $mtRed-color;
-          font-weight: bold;
+        .name {
+          font-size: 20rpx;
+          color: $textBlack-color;
           text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
+      }
+      
+      .price {
+        font-size: 24rpx;
+        color: $mtRed-color;
+        font-weight: bold;
       }
     }
+  }
+  
+  .view-all {
+    width: 100%;
+    height: 60rpx;
+    background-color: $theme-color;
+    color: white;
+    border: none;
+    border-radius: 30rpx;
+    font-size: 24rpx;
+    font-weight: bold;
+  }
+}
+
+.category-tabs {
+  background-color: white;
+  padding: 0 20rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  ul {
+    display: flex;
+    justify-content: space-between;
+    padding: 20rpx 0;
     
-    .my-exposure {
-      background-color: white;
-      padding: 20rpx;
-      box-shadow: 0 -2rpx 10rpx rgba(0, 0, 0, 0.05);
+    li {
+      font-size: 24rpx;
+      color: $textDarkGray-color;
+      padding: 10rpx 20rpx;
+      border-radius: 20rpx;
       
-      .section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20rpx;
-        
-        .l, .r {
-          height: 2rpx;
-          width: 60rpx;
-          background-color: $spLine-color;
-        }
-        
-        .m {
-          font-size: 32rpx;
-          color: $textBlack-color;
-          margin: 0 20rpx;
-          font-weight: bold;
-        }
-      }
-      
-      .recommend-btn {
-        width: 100%;
-        height: 80rpx;
+      &.active {
         background-color: $theme-color;
         color: white;
-        border: none;
-        border-radius: 8rpx;
-        font-size: 28rpx;
-        font-weight: bold;
-        transition: all 0.3s ease;
-        
-        &:hover {
-          background-color: darken($theme-color, 10%);
-        }
       }
     }
   }
 }
-</style>
-          }
-          
-          .name-c {
-            display: flex;
-            align-items: center;
-            position: relative;
-            height: 30rpx;
-            margin: 10rpx 0;
-            .name {
-              font-size: 20rpx;
-              color: $textBlack-color;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-          
-          .price {
-            font-size: 24rpx;
-            color: $mtRed-color;
-            font-weight: bold;
-          }
-        }
-      }
-      
-      .view-all {
-        display: block;
-        width: 100%;
-        padding: 15rpx;
-        background-color: white;
-        border: 2rpx solid $mtRed-color;
-        color: $mtRed-color;
-        border-radius: 8rpx;
-        font-size: 24rpx;
-        cursor: pointer;
-      }
+
+.product-list {
+  background-color: white;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  .product-item {
+    display: flex;
+    margin-bottom: 20rpx;
+    padding-bottom: 20rpx;
+    border-bottom: 1rpx solid $spLine-color;
+    
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
     
-    .category-tabs {
-      margin: 0 20rpx 20rpx;
-      background-color: white;
+    img {
+      width: 120rpx;
+      height: 120rpx;
       border-radius: 8rpx;
-      padding: 20rpx;
-      
-      ul {
-        display: flex;
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        overflow-x: auto;
-        
-        li {
-          margin-right: 20rpx;
-          padding: 10rpx 20rpx;
-          border-radius: 30rpx;
-          background-color: $page-bgcolor;
-          font-size: 24rpx;
-          color: $textDarkGray-color;
-          cursor: pointer;
-          white-space: nowrap;
-        }
-        
-        li.active {
-          background-color: $mtRed-color;
-          color: white;
-        }
-      }
+      margin-right: 20rpx;
     }
     
-    .product-list {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      margin: 0 20rpx 20rpx;
+    .name-c {
+      flex: 1;
+      margin-bottom: 10rpx;
       
-      .product-item {
-        width: 48%;
-        background-color: white;
-        border-radius: 8rpx;
-        padding: 10rpx;
-        margin-bottom: 20rpx;
-        display: flex;
-        flex-direction: column;
-        
-        img {
-          width: 100%;
-          height: 120rpx;
-          border-radius: 8rpx;
-        }
-        
-        .name-c {
-          display: flex;
-          align-items: center;
-          position: relative;
-          height: 30rpx;
-          margin: 10rpx 0;
-          
-          .name {
-            font-size: 20rpx;
-            color: $textBlack-color;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-        
-        .price {
-          font-size: 24rpx;
-          color: $mtRed-color;
-          font-weight: bold;
-        }
-      }
-    }
-    
-    .my-exposure {
-      margin: 0 20rpx 20rpx;
-      background-color: white;
-      border-radius: 8rpx;
-      padding: 20rpx;
-      
-      .section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20rpx;
-        
-        .l {
-          height: 2rpx;
-          width: 60rpx;
-          background-color: $textDarkGray-color;
-        }
-        
-        .m {
-          font-size: 32rpx;
-          color: $textBlack-color;
-          margin: 0 20rpx;
-          font-weight: bold;
-        }
-        
-        .r {
-          height: 2rpx;
-          width: 60rpx;
-          background-color: $textDarkGray-color;
-        }
-      }
-      
-      .recommend-btn {
-        display: block;
-        width: 100%;
-        padding: 15rpx;
-        background-color: $mtRed-color;
-        color: white;
-        border: none;
-        border-radius: 8rpx;
+      .name {
         font-size: 24rpx;
-        cursor: pointer;
+        color: $textBlack-color;
+        line-height: 1.5;
       }
     }
+    
+    .price {
+      font-size: 28rpx;
+      color: $mtRed-color;
+      font-weight: bold;
+    }
+  }
+}
+
+.my-exposure {
+  background-color: white;
+  padding: 20rpx;
+  margin-bottom: 10rpx;
+  border-radius: 8rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20rpx;
+    
+    .l, .r {
+      height: 2rpx;
+      width: 60rpx;
+      background-color: $spLine-color;
+    }
+    
+    .m {
+      font-size: 28rpx;
+      color: $textBlack-color;
+      margin: 0 20rpx;
+      font-weight: bold;
+    }
+  }
+  
+  .recommend-btn {
+    width: 100%;
+    height: 60rpx;
+    background-color: $theme-color;
+    color: white;
+    border: none;
+    border-radius: 30rpx;
+    font-size: 24rpx;
+    font-weight: bold;
   }
 }
 </style>

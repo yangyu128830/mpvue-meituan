@@ -29,7 +29,8 @@
     "pages/editPassword/main",
     "pages/memberLevel/main",
     "pages/consumptionHistory/main",
-    "pages/recentVisits/main"
+    "pages/recentVisits/main",
+    "pages/message/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -57,8 +58,8 @@
       {
         "pagePath": "pages/message/main",
         "text": "消息",
-        "iconPath": "static/images/icon_tabbar_message@3x.png",
-        "selectedIconPath": "static/images/icon_tabbar_message_selected@3x.png"
+        "iconPath": "static/images/icon_tabbar_message@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_message_selected@3x.svg"
       },
       {
         "pagePath": "pages/shoppingCart/main",
@@ -75,8 +76,8 @@
       {
         "pagePath": "pages/discount/main",
         "text": "特价",
-        "iconPath": "static/images/icon_tabbar_home@3x.png",
-        "selectedIconPath": "static/images/icon_tabbar_home_selected@3x.png"
+        "iconPath": "static/images/icon_tabbar_member@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
       }
     ]
   }
