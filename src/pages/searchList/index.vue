@@ -4,7 +4,7 @@
       <div class="search-c">
         <div class="search-bar">
           <i class="icon mt-search-o"></i>
-          <input placeholder="请输入城市名称查询" placeholder-style="font-size: 24rpx" @input="search"/>
+          <input v-model="keyword" placeholder="请输入城市名称查询" placeholder-style="font-size: 24rpx" @input="onSearchInput"/>
           <div class="cancle" v-if="keyword" @click="cancle">
             <i class="icon qb-icon-cancle-o"></i>
           </div>
@@ -14,19 +14,28 @@
       <span class="title">热门搜索</span>
       <div class="line-t"></div>
       <div class="tag-list">
-        <div class="tag" v-for="(item, index) in hotList" :key="index">
+        <div class="tag" v-for="(item, index) in hotList" :key="index" @click="onHotTagClick(item.label_name)">
           <span>{{item.label_name}}</span>
         </div>
       </div>
       <div class="line-m"></div>
-      <div class="history-c">
+      <div class="history-c" v-if="historyList.length > 0">
         <div class="header">
           <span>历史搜索</span>
-          <i class="icon mt-trash-o"></i>
+          <i class="icon mt-trash-o" @click="clearHistory"></i>
         </div>
         <div class="line-b"></div>
         <div class="history-list">
-          <div class="item" v-for="(item, index) in historyList" :key="index">
+          <div class="item" v-for="(item, index) in historyList" :key="index" @click="onHistoryItemClick(item)">
+            <span>{{item}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Search Results List -->
+      <div class="results-c" v-if="showResults">
+        <div class="line-t"></div>
+        <div class="results-list">
+          <div class="item" v-for="(item, index) in searchResults" :key="index">
             <span>{{item}}</span>
           </div>
         </div>
@@ -41,14 +50,84 @@ export default {
   data() {
     return {
       hotList: [],
-      historyList: ['麻辣烫', '麦当劳', '小炒肉', '奶茶']
+      historyList: [],
+      keyword: '',
+      searchResults: [],
+      showResults: false
     }
   },
   mounted() {
     this.hotList = searchData.data.data.labels
-    // this.historyList = searchData.data.data.searchHotLabelWithTgtStid.searchHotLabelList
+    this.loadHistory()
+  },
+  methods: {
+    onSearchInput() {
+      // Clear results when typing
+      this.showResults = false
+    },
+    search() {
+      if (!this.keyword.trim()) return
+      
+      // Simulate search results
+      this.searchResults = [
+        `${this.keyword} 1`,
+        `${this.keyword} 2`,
+        `${this.keyword} 3`,
+        `${this.keyword} 4`,
+        `${this.keyword} 5`
+      ]
+      this.showResults = true
+      
+      // Add to search history
+      this.addToHistory(this.keyword)
+    },
+    onHotTagClick(tag) {
+      this.keyword = tag
+      this.search()
+    },
+    onHistoryItemClick(item) {
+      this.keyword = item
+      this.search()
+    },
+    addToHistory(item) {
+      // Remove duplicates
+      const index = this.historyList.indexOf(item)
+      if (index > -1) {
+        this.historyList.splice(index, 1)
+      }
+      
+      // Add to top
+      this.historyList.unshift(item)
+      
+      // Keep only last 10 items
+      if (this.historyList.length > 10) {
+        this.historyList.pop()
+      }
+      
+      // Save to local storage
+      wx.setStorageSync('searchHistory', JSON.stringify(this.historyList))
+    },
+    loadHistory() {
+      // Load from local storage
+      const history = wx.getStorageSync('searchHistory')
+      if (history) {
+        try {
+          this.historyList = JSON.parse(history)
+        } catch (e) {
+          console.error('Failed to parse search history:', e)
+        }
+      }
+    },
+    clearHistory() {
+      // Clear history
+      this.historyList = []
+      wx.removeStorageSync('searchHistory')
+    },
+    cancle() {
+      this.keyword = ''
+      this.showResults = false
+    }
   }
-
 }
 </script>
 
@@ -183,6 +262,25 @@ export default {
           margin-bottom: 20rpx;
           span {
             font-size: 20rpx;
+            color: $textBlack-color;
+          }
+        }
+      }
+    }
+    .results-c {
+      background-color: white;
+      .results-list {
+        display: flex;
+        background-color: white;
+        margin: 30rpx;
+        flex-direction: column;
+        .item {
+          height: 80rpx;
+          display: flex;
+          align-items: center;
+          border-bottom: 1rpx solid $spLine-color;
+          span {
+            font-size: 28rpx;
             color: $textBlack-color;
           }
         }

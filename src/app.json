@@ -11,6 +11,7 @@
     "pages/categoryList/main",
     "pages/selectAddress/main",
     "pages/searchList/main",
+    "pages/searchHistory/main",
     "pages/addAddress/main",
     "pages/orderList/main",
     "pages/remark/main",
