@@ -7,6 +7,7 @@ var MpvuePlugin = require('webpack-mpvue-asset-plugin')
 var glob = require('glob')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var relative = require('relative')
+var webpack = require('webpack')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -49,6 +50,14 @@ module.exports = {
     aliasFields: ['mpvue', 'weapp', 'browser'],
     mainFields: ['browser', 'module', 'main']
   },
+  externals: {
+    global: 'global'
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      require: 'require'
+    })
+  ],
   module: {
     rules: [
       {
