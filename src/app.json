@@ -4,6 +4,7 @@
     "pages/orderList/main",
     "pages/message/main",
     "pages/shoppingCart/main",
+    "pages/medical/main",
     "pages/me/main",
     "pages/discount/main",
     "pages/hotel/main",
@@ -68,6 +69,12 @@
         "text": "购物车",
         "iconPath": "static/images/icon_tabbar_shopping_cart@3x.svg",
         "selectedIconPath": "static/images/icon_tabbar_shopping_cart_selected@3x.svg"
+      },
+      {
+        "pagePath": "pages/medical/main",
+        "text": "看病买药",
+        "iconPath": "static/images/icon_tabbar_member@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
       },
       {
         "pagePath": "pages/me/main",
