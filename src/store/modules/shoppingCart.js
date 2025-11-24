@@ -13,7 +13,8 @@ const state = {
   visibleSkuModal: false,
   visibleItemModal: false,
   skuInfo: {},
-  previewInfo: {}
+  previewInfo: {},
+  selectedItems: []
 }
 
 const mutations = {
@@ -43,6 +44,9 @@ const mutations = {
   },
   changePreviewDataMut(state, info) {
     state.previewInfo = info
+  },
+  changeSelectedItemsMut(state, info) {
+    state.selectedItems = info
   }
 }
 

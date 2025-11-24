@@ -113,31 +113,31 @@ import { mapState, mapActions } from 'vuex'
 export default {
   data() {
     return {
-      isManaging: false,
-      selectedItems: []
+      isManaging: false
     }
   },
   computed: {
-     ...mapState('shoppingCart', ['foods']),
-     items() {
-       // Flatten all items from categories that are in the cart (sequence > 0)
-       return this.foods.reduce((acc, category) => {
-         const cartItems = category.list.filter(item => item.sequence > 0)
-         // Add favorite and type properties to items if missing
-         return acc.concat(cartItems.map(item => ({
-           ...item,
-           id: item.id || item.product_id,
-           name: item.name,
-           price: item.min_price || item.price,
-           quantity: item.sequence || 1,
-           description: item.description || '暂无描述',
-           image: item.picture || 'https://via.placeholder.com/100x100',
-           type: item.type || 'cart',
-           isFavorite: item.isFavorite || false,
-           spec: item.spec || ''
-         })))
-       }, [])
-     },
+    ...mapState('shoppingCart', ['foods']),
+    ...mapState('shoppingCart', ['selectedItems']),
+    items() {
+      // Flatten all items from categories that are in the cart (sequence > 0)
+      return this.foods.reduce((acc, category) => {
+        const cartItems = category.spus.filter(item => item.sequence > 0)
+        // Add favorite and type properties to items if missing
+        return acc.concat(cartItems.map(item => ({
+          ...item,
+          id: item.id || item.product_id,
+          name: item.name,
+          price: item.min_price || item.price,
+          quantity: item.sequence || 1,
+          description: item.description || '暂无描述',
+          image: item.picture || 'https://via.placeholder.com/100x100',
+          type: item.type || 'cart',
+          isFavorite: item.isFavorite || false,
+          spec: item.spec || ''
+        })))
+      }, [])
+    },
     filteredItems() {
       // For now, show all items in cart
       return this.items
@@ -158,51 +158,100 @@ export default {
     }
   },
   methods: {
+    ...mapActions('shoppingCart', ['addItemAction', 'reduceItemAction']),
     toggleManage() {
       this.isManaging = !this.isManaging
       if (!this.isManaging) {
-        this.selectedItems = []
+        this.$store.commit('shoppingCart/changeSelectedItemsMut', [])
       }
     },
     isItemSelected(item) {
       return this.selectedItems.includes(item.id)
     },
     toggleItemSelection(item) {
-      const index = this.selectedItems.indexOf(item.id)
+      const newSelectedItems = [...this.selectedItems]
+      const index = newSelectedItems.indexOf(item.id)
       if (index > -1) {
-        this.selectedItems.splice(index, 1)
+        newSelectedItems.splice(index, 1)
       } else {
-        this.selectedItems.push(item.id)
+        newSelectedItems.push(item.id)
       }
+      this.$store.commit('shoppingCart/changeSelectedItemsMut', newSelectedItems)
     },
     toggleSelectAll() {
-      if (this.isAllSelected) {
-        this.selectedItems = []
-      } else {
-        this.selectedItems = this.filteredItems.map(item => item.id)
+      let newSelectedItems = []
+      if (!this.isAllSelected) {
+        newSelectedItems = this.filteredItems.map(item => item.id)
       }
+      this.$store.commit('shoppingCart/changeSelectedItemsMut', newSelectedItems)
     },
     increaseQuantity(item) {
-      item.quantity++
+      // Find the category and item index to dispatch the correct action
+      for (let i = 0; i < this.foods.length; i++) {
+        const category = this.foods[i]
+        const itemIndex = category.spus.findIndex(spu => spu.id === item.id)
+        if (itemIndex > -1) {
+          this.addItemAction({ item, index: itemIndex })
+          break
+        }
+      }
     },
     decreaseQuantity(item) {
       if (item.quantity > 1) {
-        item.quantity--
+        // Find the category and item index to dispatch the correct action
+        for (let i = 0; i < this.foods.length; i++) {
+          const category = this.foods[i]
+          const itemIndex = category.spus.findIndex(spu => spu.id === item.id)
+          if (itemIndex > -1) {
+            this.reduceItemAction({ item, index: itemIndex })
+            break
+          }
+        }
       } else {
         // If quantity is 1 and user clicks minus, remove item
         this.deleteItem(item)
       }
     },
     deleteItem(item) {
-      const index = this.items.findIndex(i => i.id === item.id)
-      if (index > -1) {
-        this.items.splice(index, 1)
+      // Find the category and item index to dispatch the correct action
+      for (let i = 0; i < this.foods.length; i++) {
+        const category = this.foods[i]
+        const itemIndex = category.spus.findIndex(spu => spu.id === item.id)
+        if (itemIndex > -1) {
+          // Set quantity to 0
+          category.spus[itemIndex].sequence = 0
+          // Update category count and totalPrice
+          category.count = category.spus.reduce((total, spu) => total + spu.sequence, 0)
+          category.totalPrice = category.spus.reduce((total, spu) => total + (spu.min_price * spu.sequence), 0)
+          // Commit changes to store
+          this.$store.commit('shoppingCart/changeFoodsDataMut', this.foods)
+          break
+        }
       }
-      this.removeFromSelected(item.id)
+      // Remove from selected items
+      this.$store.commit('shoppingCart/changeSelectedItemsMut', 
+        this.selectedItems.filter(id => id !== item.id)
+      )
     },
     deleteSelectedItems() {
-      this.items = this.items.filter(item => !this.selectedItems.includes(item.id))
-      this.selectedItems = []
+      // Update foods in Vuex store
+      const updatedFoods = this.foods.map(category => {
+        // Set sequence to 0 for selected items
+        const updatedSpus = category.spus.map(spu => {
+          if (this.selectedItems.includes(spu.id)) {
+            return { ...spu, sequence: 0 }
+          }
+          return spu
+        })
+        // Update category count and totalPrice
+        const updatedCount = updatedSpus.reduce((total, spu) => total + spu.sequence, 0)
+        const updatedTotalPrice = updatedSpus.reduce((total, spu) => total + (spu.min_price * spu.sequence), 0)
+        return { ...category, spus: updatedSpus, count: updatedCount, totalPrice: updatedTotalPrice }
+      })
+      // Commit changes to store
+      this.$store.commit('shoppingCart/changeFoodsDataMut', updatedFoods)
+      // Clear selected items
+      this.$store.commit('shoppingCart/changeSelectedItemsMut', [])
     },
     checkoutSelected() {
       if (this.selectedItems.length === 0) {
