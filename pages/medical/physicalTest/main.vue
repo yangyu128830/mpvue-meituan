@@ -1,8 +1,12 @@
 <template>
   <div class="physical-test-page">
     <!-- Test Introduction -->
+    <div class="section">
+      <div class="l"></div>
+      <span class="m">基础健康体测</span>
+      <div class="r"></div>
+    </div>
     <div class="test-intro">
-      <h3>基础健康体测</h3>
       <p>通过简单的问题了解您的健康状况</p>
     </div>
 
@@ -113,41 +117,57 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/global.scss";
+
 .physical-test-page {
-  padding: 10px;
+  padding: 0;
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  margin: 20rpx 0;
+  
+  .l, .r {
+    flex: 1;
+    height: 2rpx;
+    background-color: $spLine-color;
+  }
+  
+  .m {
+    font-size: 32rpx;
+    color: $textBlack-color;
+    margin: 0 20rpx;
+  }
 }
 
 .test-intro {
   text-align: center;
-  margin-bottom: 20px;
-}
+  margin-bottom: 30rpx;
 
-.test-intro h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.test-intro p {
-  font-size: 14px;
-  color: #666;
+  p {
+    font-size: 28rpx;
+    color: $textGray-color;
+  }
 }
 
 .question-list {
-  margin-bottom: 20px;
+  margin-bottom: 30rpx;
 }
 
 .question-item {
-  background-color: #fff;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  padding: 15px;
-  margin-bottom: 15px;
-}
+  background-color: white;
+  border-radius: 8rpx;
+  padding: 25rpx;
+  margin-bottom: 25rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
 
-.question-item h4 {
-  font-size: 16px;
-  margin-bottom: 15px;
+  h4 {
+    font-size: 28rpx;
+    margin-bottom: 20rpx;
+    color: $textBlack-color;
+  }
 }
 
 .options {
@@ -156,24 +176,28 @@ export default {
 }
 
 .options label {
-  margin-bottom: 10px;
-  font-size: 14px;
+  margin-bottom: 15rpx;
+  font-size: 24rpx;
   cursor: pointer;
+  color: $textDarkGray-color;
 }
 
 .options input {
-  margin-right: 5px;
+  margin-right: 10rpx;
+  transform: scale(1.2);
 }
 
 .submit-btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
+  width: 90%;
+  margin: 0 auto;
+  display: block;
+  padding: 20rpx;
+  background-color: $theme-color;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 30rpx;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 28rpx;
 }
 
 .result-dialog {
@@ -182,39 +206,44 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, $modal-opacity);
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 9999;
 }
 
 .dialog-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 4px;
+  background-color: white;
+  padding: 30rpx;
+  border-radius: 8rpx;
   width: 80%;
-  max-width: 400px;
-}
+  max-width: 600rpx;
 
-.dialog-content h3 {
-  font-size: 18px;
-  margin-bottom: 15px;
-}
+  h3 {
+    font-size: 32rpx;
+    margin-bottom: 20rpx;
+    text-align: center;
+    color: $textBlack-color;
+  }
 
-.dialog-content p {
-  font-size: 14px;
-  margin-bottom: 15px;
-  line-height: 1.5;
+  p {
+    font-size: 24rpx;
+    margin-bottom: 25rpx;
+    line-height: 1.5;
+    color: $textDarkGray-color;
+    text-align: center;
+  }
 }
 
 .close-result {
   width: 100%;
-  padding: 8px;
-  background-color: #007bff;
+  padding: 16rpx;
+  background-color: $theme-color;
   color: white;
   border: none;
-  border-radius: 4px;
+  border-radius: 30rpx;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 24rpx;
 }
 </style>
