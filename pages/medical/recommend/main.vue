@@ -10,7 +10,7 @@
             <h4>{{ item.name }}</h4>
             <p>{{ item.description }}</p>
             <span class="price">¥{{ item.price }}</span>
-            <button class="add-to-cart">加入购物车</button>
+            <button class="add-to-cart" @click="addToCart(item)">加入购物车</button>
           </div>
         </div>
       </div>
@@ -26,7 +26,7 @@
             <h4>{{ item.name }}</h4>
             <p>{{ item.description }}</p>
             <span class="price">¥{{ item.price }}</span>
-            <button class="add-to-cart">加入购物车</button>
+            <button class="add-to-cart" @click="addToCart(item)">加入购物车</button>
           </div>
         </div>
       </div>
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import store from '@/store'
+
 export default {
   data() {
     return {
@@ -50,6 +52,61 @@ export default {
         { id: 3, name: '润喉糖', description: '缓解喉咙不适', price: 12.3, image: 'https://via.placeholder.com/150' },
         { id: 4, name: '眼药水', description: '缓解眼疲劳', price: 28.7, image: 'https://via.placeholder.com/150' }
       ]
+    }
+  },
+  methods: {
+    addToCart(item) {
+      // Initialize medical shop if not exists
+      let medicalShop = store.state.shoppingCart.shopInfo
+      if (!medicalShop || medicalShop.name !== '医疗商城') {
+        medicalShop = {
+          name: '医疗商城',
+          prompt_text: '',
+          activity_info: [],
+          selectedArr: []
+        }
+        const foods = [
+          {
+            name: '推荐药品',
+            count: 0,
+            totalPrice: 0,
+            spus: []
+          }
+        ]
+        store.commit('shoppingCart/changeShopInfoDataMut', medicalShop)
+        store.commit('shoppingCart/changeFoodsDataMut', foods)
+        const spus = {
+          title: '推荐药品',
+          index: 0,
+          list: []
+        }
+        store.commit('shoppingCart/changeSpusDataMut', spus)
+      }
+
+      const spus = store.state.shoppingCart.spus
+      const existingIndex = spus.list.findIndex(spu => spu.name === item.name)
+      
+      if (existingIndex !== -1) {
+        // Increment quantity for existing item
+        store.dispatch('shoppingCart/addItemAction', { item: spus.list[existingIndex], index: existingIndex })
+      } else {
+        // Add new item to cart
+        const newSpu = {
+          name: item.name,
+          min_price: item.price,
+          sequence: 1,
+          image: item.image,
+          description: item.description
+        }
+        spus.list.push(newSpu)
+        store.commit('shoppingCart/changeSpusDataMut', spus)
+        
+        // Update food count and total price
+        const foods = store.state.shoppingCart.foods
+        foods[0].count += 1
+        foods[0].totalPrice += item.price + (item.price > 0 ? 1 : 0)
+        store.commit('shoppingCart/changeFoodsDataMut', foods)
+      }
     }
   }
 }
