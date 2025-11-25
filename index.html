@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8">
     <title>mpvue-meituan</title>
+    <script>
+      // 定义global变量，解决浏览器环境不支持Node.js模块系统的问题
+      if (typeof global === 'undefined') {
+        window.global = window;
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
