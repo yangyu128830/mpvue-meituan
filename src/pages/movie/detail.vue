@@ -81,9 +81,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../assets/global.scss';
-@import '../../assets/iconfont.scss';
-
 .movie-detail {
   padding-bottom: 60px;
 }
@@ -94,7 +91,7 @@ export default {
 
 .poster-img {
   width: 100%;
-  height: 400rpx;
+  height: 300px;
   object-fit: cover;
 }
 
@@ -104,122 +101,103 @@ export default {
   left: 0;
   width: 100%;
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-  padding: 80rpx 30rpx 30rpx;
+  padding: 60px 15px 15px;
   color: #fff;
 }
 
 .movie-title {
-  font-size: 36rpx;
+  font-size: 24px;
   font-weight: bold;
-  margin-bottom: 10rpx;
+  margin-bottom: 5px;
 }
 
 .movie-subtitle {
-  font-size: 24rpx;
-  margin-bottom: 15rpx;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .movie-price {
-  font-size: 30rpx;
-  color: $mtRed-color;
-  margin-bottom: 20rpx;
+  font-size: 18px;
+  color: #ff4444;
+  margin-bottom: 15px;
 }
 
 .buy-ticket-btn {
-  background-color: $theme-color;
+  background-color: #ff4444;
   color: #fff;
   border: none;
-  padding: 15rpx 30rpx;
-  border-radius: 8rpx;
-  font-size: 28rpx;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
 .movie-info {
-  background-color: $nav-bgcolor;
-  margin-bottom: 20rpx;
+  background-color: #fff;
+  margin-bottom: 10px;
 }
 
 .section-title {
-  font-size: 32rpx;
+  font-size: 16px;
   font-weight: bold;
-  padding: 20rpx 30rpx;
-  border-bottom: 1rpx solid $spLine-color;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .info-row {
   display: flex;
-  padding: 20rpx 30rpx;
-  border-bottom: 1rpx solid $spLine-color;
+  padding: 10px 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .info-label {
-  width: 120rpx;
-  color: $textGray-color;
-  font-size: 26rpx;
+  width: 80px;
+  color: #999;
 }
 
 .info-value {
   flex: 1;
-  font-size: 26rpx;
-  color: $textBlack-color;
 }
 
 .recommended-movies {
-  background-color: $nav-bgcolor;
+  background-color: #fff;
 }
 
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 20rpx 30rpx;
+  padding: 0 15px 15px;
 }
 
 .card {
   width: 32%;
   margin-right: 2%;
-  margin-bottom: 20rpx;
-  background-color: $nav-bgcolor;
-  border-radius: 10rpx;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  margin-bottom: 15px;
   &:nth-child(3n) {
     margin-right: 0;
   }
 }
 
-.card:hover {
-  transform: translateY(-5rpx);
-  box-shadow: 0 5rpx 20rpx rgba(0, 0, 0, 0.1);
-}
-
 .card-img {
   width: 100%;
-  height: 180rpx;
+  height: 120px;
   object-fit: cover;
-  border-radius: 10rpx 10rpx 0 0;
+  border-radius: 5px;
 }
 
 .card-title {
-  font-size: 24rpx;
-  font-weight: bold;
-  color: $textBlack-color;
-  margin-bottom: 8rpx;
-  padding: 10rpx 15rpx 0;
+  font-size: 14px;
+  margin-top: 5px;
 }
 
 .card-subtitle {
-  font-size: 22rpx;
-  color: $textGray-color;
-  margin-bottom: 8rpx;
-  padding: 0 15rpx;
+  font-size: 12px;
+  color: #999;
+  margin-top: 3px;
 }
 
 .card-price {
-  font-size: 24rpx;
-  color: $mtRed-color;
-  font-weight: bold;
-  padding: 0 15rpx 15rpx;
+  font-size: 14px;
+  color: #ff4444;
+  margin-top: 3px;
 }
 </style>
