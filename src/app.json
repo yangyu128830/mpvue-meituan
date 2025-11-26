@@ -36,7 +36,8 @@
     "pages/editPassword/main",
     "pages/memberLevel/main",
     "pages/consumptionHistory/main",
-    "pages/recentVisits/main"
+    "pages/recentVisits/main",
+    "pages/leisure/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -103,6 +104,12 @@
         "text": "酒店民宿",
         "iconPath": "static/images/icon_tabbar_member@3x.svg",
         "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
+      },
+      {
+        "pagePath": "pages/leisure/main",
+        "text": "休闲玩乐",
+        "iconPath": "static/images/icon_tabbar_medical@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_medical_selected@3x.svg"
       }
     ]
   }
