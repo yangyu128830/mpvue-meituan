@@ -81,8 +81,8 @@
       {
         "pagePath": "pages/medical/main",
         "text": "看病买药",
-        "iconPath": "static/images/icon_tabbar_member@3x.svg",
-        "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
+        "iconPath": "static/images/icon_tabbar_medical@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_medical_selected@3x.svg"
       },
       {
         "pagePath": "pages/me/main",
