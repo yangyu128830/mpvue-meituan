@@ -23,9 +23,20 @@ function getEntry (rootSrc) {
    return map;
 }
 
+function getRootPagesEntry () {
+  var map = {};
+  glob.sync('./pages/**/main.vue')
+  .forEach(file => {
+    var key = relative('./src', file).replace('.vue', '');
+    map[key] = file;
+  })
+  return map;
+}
+
 const appEntry = { app: resolve('./src/main.js') }
 const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
-const entry = Object.assign({}, appEntry, pagesEntry)
+const rootPagesEntry = getRootPagesEntry()
+const entry = Object.assign({}, appEntry, pagesEntry, rootPagesEntry)
 
 module.exports = {
   // 如果要自定义生成的 dist 目录里面的文件路径，

@@ -59,15 +59,22 @@ export default {
     return {
       movie: {},
       recommendedMovies: [
-        { poster: '/static/images/movie2.jpg', title: '电影2', subtitle: '类型2', price: '¥39.9' },
-        { poster: '/static/images/movie3.jpg', title: '电影3', subtitle: '类型3', price: '¥49.9' },
-        { poster: '/static/images/movie4.jpg', title: '电影4', subtitle: '类型4', price: '¥39.9' }
+        { poster: 'https://picsum.photos/id/1000/300/450', title: '星际穿越', subtitle: '科幻/冒险', rating: '9.4', price: '¥29.9', tag: '热映' },
+        { poster: 'https://picsum.photos/id/1001/300/450', title: '霸王别姬', subtitle: '剧情/爱情', rating: '9.6', price: '¥39.9', tag: '经典' },
+        { poster: 'https://picsum.photos/id/1002/300/450', title: '阿甘正传', subtitle: '剧情/励志', rating: '9.5', price: '¥49.9', tag: '经典' }
       ]
     }
   },
   onLoad(options) {
     if (options.movie) {
       this.movie = JSON.parse(options.movie);
+    }
+  },
+  methods: {
+    gotoDetail(movie) {
+      wx.navigateTo({
+        url: `/pages/movie/detail?movie=${JSON.stringify(movie)}`
+      })
     }
   }
 };
