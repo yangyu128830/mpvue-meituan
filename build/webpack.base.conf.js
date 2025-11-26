@@ -27,8 +27,11 @@ function getRootPagesEntry () {
   var map = {};
   glob.sync('./pages/**/main.vue')
   .forEach(file => {
-    var key = relative('./src', file).replace('.vue', '');
-    map[key] = file;
+    // Exclude medical pages
+    if (!file.includes('medical')) {
+      var key = relative('./src', file).replace('.vue', '');
+      map[key] = file;
+    }
   })
   return map;
 }
