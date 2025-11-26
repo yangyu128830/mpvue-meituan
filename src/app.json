@@ -1,12 +1,13 @@
 {
   "pages": [
     "pages/home/main",
+    "pages/food/main",
     "pages/movie/main",
     "pages/movie/detail",
     "pages/orderList/main",
     "pages/message/main",
     "pages/shoppingCart/main",
-    "pages/medical/main",
+
     "pages/me/main",
     "pages/discount/main",
     "pages/hotel/main",
@@ -55,6 +56,12 @@
         "selectedIconPath": "static/images/icon_tabbar_home_selected@3x.png"
       },
       {
+        "pagePath": "pages/food/main",
+        "text": "美食",
+        "iconPath": "static/images/icon_tabbar_food@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_food_selected@3x.svg"
+      },
+      {
         "pagePath": "pages/orderList/main",
         "text": "订单",
         "iconPath": "static/images/icon_tabbar_order@3x.png",
@@ -78,12 +85,7 @@
         "iconPath": "static/images/icon_tabbar_member@3x.svg",
         "selectedIconPath": "static/images/icon_tabbar_member_selected@3x.svg"
       },
-      {
-        "pagePath": "pages/medical/main",
-        "text": "看病买药",
-        "iconPath": "static/images/icon_tabbar_medical@3x.svg",
-        "selectedIconPath": "static/images/icon_tabbar_medical_selected@3x.svg"
-      },
+
       {
         "pagePath": "pages/me/main",
         "text": "我的",
