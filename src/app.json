@@ -58,8 +58,8 @@
       {
         "pagePath": "pages/food/main",
         "text": "美食",
-        "iconPath": "static/images/icon_tabbar_shopping_cart@3x.svg",
-        "selectedIconPath": "static/images/icon_tabbar_shopping_cart_selected@3x.svg"
+        "iconPath": "static/images/icon_tabbar_food@3x.svg",
+        "selectedIconPath": "static/images/icon_tabbar_food_selected@3x.svg"
       },
       {
         "pagePath": "pages/orderList/main",

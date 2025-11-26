@@ -1,10 +1,15 @@
 <template>
   <div class="movie-page">
     <!-- 顶部导航栏 -->
-    <div class="nav-bar">
-      <div class="nav-title">电影演出</div>
-      <div class="nav-search">
-        <input type="text" placeholder="搜索电影、演出">
+    <div class="header-c">
+      <div class="header-l" @click="addressClick">
+        <i class="icon mt-location-o" :style="{color: '#434343', 'font-size': 38 + 'rpx'}"></i>
+        <span>上海市漕河泾开发区</span>
+        <i class="icon mt-arrow-right-o" :style="{color: '#434343', 'font-size': 28 + 'rpx'}"></i>
+      </div>
+      <div class="header-r" @click="searchClick">
+        <i class="icon mt-search-o"></i>
+        <span>搜索电影、演出</span>
       </div>
     </div>
     <!-- 分类标签 -->
@@ -169,6 +174,8 @@
 </template>
 
 <script>
+import '../../assets/iconfont.scss'
+
 export default {
   data() {
     return {
@@ -220,6 +227,14 @@ export default {
     switchTab(index) {
       this.currentTab = index;
     },
+    addressClick() {
+      // 地址点击事件处理
+      console.log('Address clicked');
+    },
+    searchClick() {
+      // 搜索点击事件处理
+      console.log('Search clicked');
+    },
     gotoDetail(movie) {
       wx.navigateTo({
         url: `/pages/movie/detail?movie=${JSON.stringify(movie)}`
@@ -231,87 +246,93 @@ export default {
 
 <style lang="scss" scoped>
 .movie-page {
-  background-color: #f5f5f5;
+  background-color: $page-bgcolor;
   min-height: 100vh;
 }
 
 /* 顶部导航栏 */
-.nav-bar {
+.header-c {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 20px;
-  background-color: #ff4444;
-  color: #fff;
+  padding: 20rpx 30rpx;
+  background-color: $nav-bgcolor;
+  color: $nav-titlecolor;
 }
 
-.nav-title {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.nav-search {
-  width: 200px;
-  height: 30px;
-  background-color: rgba(255, 255, 255, 0.3);
-  border-radius: 15px;
-  padding: 0 15px;
+.header-l {
   display: flex;
   align-items: center;
 }
 
-.nav-search input {
-  width: 100%;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  color: #fff;
-  font-size: 14px;
+.header-l .icon {
+  margin-right: 10rpx;
 }
 
-.nav-search input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+.header-l span {
+  font-size: 28rpx;
+  color: $textBlack-color;
+}
+
+.header-r {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 20rpx;
+  padding: 10rpx 20rpx;
+  width: 60%;
+}
+
+.header-r .icon {
+  margin-right: 10rpx;
+  color: $textGray-color;
+}
+
+.header-r span {
+  font-size: 24rpx;
+  color: $textGray-color;
 }
 
 /* 分类标签 */
 .category-tabs {
   display: flex;
-  background-color: #fff;
+  background-color: $nav-bgcolor;
   overflow-x: auto;
   white-space: nowrap;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid $spLine-color;
 }
 
 .category-tabs .tab {
-  padding: 10px 20px;
-  font-size: 16px;
-  color: #333;
+  padding: 15rpx 30rpx;
+  font-size: 28rpx;
+  color: $textBlack-color;
   cursor: pointer;
   transition: all 0.3s ease;
-  border-bottom: 2px solid transparent;
+  border-bottom: 4rpx solid transparent;
 }
 
 .category-tabs .tab.active {
-  color: #ff4444;
-  border-bottom: 2px solid #ff4444;
+  color: $theme-color;
+  border-bottom: 4rpx solid $theme-color;
   font-weight: bold;
 }
 
 .category-tabs .tab:hover {
-  color: #ff4444;
+  color: $theme-color;
 }
 
 /* 内容区域 */
 .content {
-  padding: 10px;
+  padding: 0;
+  background-color: $page-bgcolor;
+  min-height: 60vh;
 }
 
 /* 区块样式 */
 .section {
-  background-color: #fff;
-  border-radius: 8px;
-  margin-bottom: 10px;
+  background-color: $nav-bgcolor;
+  margin-bottom: 20rpx;
   overflow: hidden;
 }
 
@@ -319,19 +340,19 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 20px;
-  border-bottom: 1px solid #f5f5f5;
+  padding: 20rpx 30rpx;
+  border-bottom: 1rpx solid $spLine-color;
 }
 
 .section-title {
-  font-size: 18px;
+  font-size: 32rpx;
   font-weight: bold;
-  color: #333;
+  color: $textBlack-color;
 }
 
 .section-more {
-  color: #999;
-  font-size: 14px;
+  color: $textGray-color;
+  font-size: 24rpx;
   text-decoration: none;
 }
 
@@ -339,22 +360,27 @@ export default {
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  padding: 10px;
+  padding: 20rpx 30rpx;
 }
 
 /* 卡片样式 */
 .card {
-  width: 23%;
-  margin: 0 1% 15px;
-  background-color: #fff;
-  border-radius: 8px;
+  width: 32%;
+  margin-right: 2%;
+  margin-bottom: 20rpx;
+  background-color: $nav-bgcolor;
+  border-radius: 10rpx;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
 }
 
 .card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-5rpx);
+  box-shadow: 0 5rpx 20rpx rgba(0, 0, 0, 0.1);
 }
 
 .card-poster {
@@ -375,57 +401,57 @@ export default {
 
 .card-tag {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #ff4444;
+  top: 10rpx;
+  left: 10rpx;
+  background-color: $theme-color;
   color: #fff;
-  font-size: 12px;
-  padding: 2px 8px;
-  border-radius: 4px;
+  font-size: 20rpx;
+  padding: 4rpx 10rpx;
+  border-radius: 6rpx;
 }
 
 .card-info {
-  padding: 10px;
+  padding: 15rpx;
 }
 
 .card-title {
-  font-size: 14px;
+  font-size: 24rpx;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 5px;
+  color: $textBlack-color;
+  margin-bottom: 8rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card-subtitle {
-  font-size: 12px;
-  color: #999;
-  margin-bottom: 5px;
+  font-size: 22rpx;
+  color: $textDarkGray-color;
+  margin-bottom: 8rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .card-rating {
-  font-size: 12px;
-  color: #ff9900;
-  margin-bottom: 5px;
+  font-size: 22rpx;
+  color: $theme-color;
+  margin-bottom: 8rpx;
 }
 
 .rating-star {
-  margin-left: 3px;
+  margin-left: 5rpx;
 }
 
 .card-release, .card-date {
-  font-size: 12px;
-  color: #666;
-  margin-bottom: 5px;
+  font-size: 22rpx;
+  color: $textDarkGray-color;
+  margin-bottom: 8rpx;
 }
 
 .card-price {
-  font-size: 14px;
-  color: #ff4444;
+  font-size: 24rpx;
+  color: $mtRed-color;
   font-weight: bold;
 }
 
@@ -433,87 +459,19 @@ export default {
 @media (max-width: 750px) {
   .card {
     width: 48%;
-    margin: 0 1% 15px;
+    margin: 0 1% 20rpx;
   }
 }
 
 @media (max-width: 480px) {
   .card {
     width: 100%;
-    margin: 0 0 15px;
+    margin: 0 0 20rpx;
   }
-}
-
-.tabbar-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 24rpx;
-}
-
-.tabbar-item.active {
-  color: $theme-color;
-}
-
-.content {
-  background-color: $pageBg-color;
-  min-height: 60vh;
-  padding-top: 20rpx;
-}
-
-.section {
-  background-color: $bgWhite-color;
-  margin-bottom: 20rpx;
-  border-radius: 10rpx;
-}
-
-.section-title {
-  font-size: 32rpx;
-  font-weight: bold;
-  padding: 30rpx;
-}
-
-.card-list {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 30rpx 30rpx;
-}
-
-.card {
-  width: 32%;
-  margin-right: 2%;
-  margin-bottom: 30rpx;
-  &:nth-child(3n) {
-    margin-right: 0;
-  }
-}
-
-.card-img {
-  width: 100%;
-  height: 240rpx;
-  object-fit: cover;
-  border-radius: 10rpx;
-}
-
-.card-title {
-  font-size: 28rpx;
-  margin-top: 10rpx;
-}
-
-.card-subtitle {
-  font-size: 24rpx;
-  color: $textGray-color;
-  margin-top: 6rpx;
-}
-
-.card-price {
-  font-size: 28rpx;
-  color: $textRed-color;
-  margin-top: 6rpx;
 }
 
 .bottom-ad {
-  background-color: $bgWhite-color;
+  background-color: $nav-bgcolor;
   margin-top: 20rpx;
   border-radius: 10rpx;
 }
